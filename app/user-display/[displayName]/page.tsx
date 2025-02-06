@@ -1,6 +1,10 @@
 "use client"
 
-const UserDisplay = ({params}: {params: {displayName: string}}) => {
+import { LogOutButton } from "@/app/components/LogOutButton";
+import { useParams } from "next/navigation";
+
+const UserDisplay = () => {
+    const {displayName} = useParams();
 
     const handleFetch = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -18,9 +22,10 @@ const UserDisplay = ({params}: {params: {displayName: string}}) => {
         console.log(result);
     }
     
-    return (<div>
-        Hello , {params.displayName}
+    return (<div className="items-center w-screen mx-auto">
+        Hello , {displayName}
         <button className="block border-2" onClick={handleFetch}>Fetch doggos</button>
+        <LogOutButton />
     </div>)
 }
 
