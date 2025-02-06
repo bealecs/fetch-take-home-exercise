@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 const UserDisplay = () => {
     const {displayName} = useParams();
     return (<div className="items-center w-screen mx-auto">
-        Hello , {displayName}
+        Hello, {displayName}
         <LogOutButton />
         <SearchDoggos />
     </div>)

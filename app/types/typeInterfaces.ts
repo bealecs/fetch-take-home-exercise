@@ -20,3 +20,8 @@ export interface Coordinates {
     lat: number;
     lon: number;
 }
+
+export interface DogSearch {
+    resultIds: string[];
+    total: number;
+}
