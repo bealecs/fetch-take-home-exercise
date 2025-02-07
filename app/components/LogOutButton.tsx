@@ -15,5 +15,5 @@ export const LogOutButton = () => {
         router.push("/")
     }
 
-    return <button onClick={handleLogOut} className="my-4 p-2 border-2 rounded-xl">Log out</button>
+    return <button onClick={handleLogOut} className="my-4 underline rounded-xl text-xl lg:text-3xl">Log out</button>
 }
