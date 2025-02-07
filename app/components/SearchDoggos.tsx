@@ -34,6 +34,19 @@ export const SearchDoggos = () => {
     setSelectedBreed(e.target.value);
   };
 
+  const handleSortBreed = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setSortByAscending((prevState) => !prevState);
+    setDogBreeds((prevBreeds) => {
+      const sortedBreeds = [...prevBreeds];
+      if (sortByAscending) {
+        return sortedBreeds.sort();
+      } else {
+        return sortedBreeds.reverse();
+      }
+    });
+  };
+
   const handleNextCursorValue = async () => {
     setLoading(true);
     if (
@@ -157,21 +170,15 @@ export const SearchDoggos = () => {
     setUserFavoriteList([]);
     setDoggoMatch(null);
   };
-  //this useEffect will cause a rerender if any of the filter settings are adjusted
+
   useEffect(() => {
     detailsRef.current?.setAttribute("open", "true") //this will set the details element to be open & the handleSubmit for the search function is gonna change it to be closed after searching
     const getDogBreeds = async () => {
-      if (sortByAscending) {
-        //im going to pass an extra boolean value to this function. If the value is true, return the breeds in ascending order || descending order if false is passed in
-        const breeds: string[] = await fetchDogBreeds(true);
-        setDogBreeds(breeds);
-      } else {
-        const breeds: string[] = await fetchDogBreeds(false);
-        setDogBreeds(breeds);
-      }
+      const breeds: string[] = await fetchDogBreeds();
+      setDogBreeds(breeds);
     };
     getDogBreeds();
-  }, [sortByAscending]);
+  }, []);
 
   return (
     <div className="bg-blue-900 text-blue-100 font-semibold min-h-screen">
@@ -187,7 +194,7 @@ export const SearchDoggos = () => {
               <div className="my-4 flex flex-col space-y-4 items-center justify-center">
                   <button
                     className="block mx-auto w-fit"
-                    onClick={() => setSortByAscending((prev) => !prev)}
+                    onClick={(e) => handleSortBreed(e)}
                   >
                     Sort breeds{" "}
                     {sortByAscending ? "descending ▼" : "ascending ▲"}
