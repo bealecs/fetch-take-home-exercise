@@ -6,9 +6,7 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'frontend-take-home.fetch.com',
-        port: '',
-        pathname: '',
-        search: '',
+        pathname: '/**',
       },
     ],
   }
