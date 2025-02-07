@@ -1,6 +1,5 @@
-export const fetchDogsByBreed = async (e: React.FormEvent, breed: string) => {
-    e.preventDefault();
-    const response = await fetch(`https://frontend-take-home-service.fetch.com/dogs/breeds/${breed}`, {
+export const fetchDogBreeds = async (): Promise<string[]> => {
+    const response = await fetch("https://frontend-take-home-service.fetch.com/dogs/breeds", {
         credentials: "include",
         headers: {
             "Content-Type": "application/json"
@@ -11,5 +10,5 @@ export const fetchDogsByBreed = async (e: React.FormEvent, breed: string) => {
     }
 
     const result = await response.json();
-    console.log(result);
+    return result;
 }

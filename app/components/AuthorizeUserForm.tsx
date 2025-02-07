@@ -26,7 +26,6 @@ export const AuthorizeUserForm = () => {
         }
 
         router.push(`/user-display/${displayName}`);
-        console.log(response.headers)
     }
 
     return (

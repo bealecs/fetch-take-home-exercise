@@ -24,4 +24,6 @@ export interface Coordinates {
 export interface DogSearch {
     resultIds: string[];
     total: number;
+    next?: string | null;
+    prev?: string | null;
 }
