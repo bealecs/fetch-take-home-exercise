@@ -132,13 +132,13 @@ export const SearchDoggos = () => {
   }, [sortByAscending]);
 
   return (
-    <div className="bg-blue-800 text-blue-400">
+    <div className="bg-blue-800 text-blue-300 font-semibold">
       {loading ? (
         <Loading />
       ) : (
         <div>
           <button
-            className="underline"
+            className="underline block w-fit mx-auto"
             onClick={(e) => {
               e.preventDefault();
               setShowAdvancedFilters((prev) => !prev);
@@ -148,17 +148,18 @@ export const SearchDoggos = () => {
               ? "Hide advanced filters"
               : "Show advanced filters"}
           </button>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="w-full">
             {showAdvancedFilters && (
               <div className="my-4">
                 <button
-                  className="block underline"
+                  className="block underline mx-auto w-fit"
                   onClick={() => setSortByAscending((prev) => !prev)}
                 >
                   Sort breeds {sortByAscending ? "descending ▼" : "ascending ▲"}
                 </button>
                 <select
                   id="breed"
+                  className="w-fit mx-auto block text-black"
                   value={selectedBreed || ""}
                   onChange={handleBreedChange}
                 >
@@ -173,16 +174,20 @@ export const SearchDoggos = () => {
                 </select>
               </div>
             )}
-            <button type="submit">Search Doggos</button>
+            {dogCards.length < 1 && (<div>
+                <h1 className="text-5xl text-center my-12">Start your search now</h1>
+                <h2 className="text-3xl text-center my-12">Use filters to refine your search</h2>
+            </div>)}
+            <button className="w-fit block mx-auto border-2 rounded-xl p-2 bg-blue-300 text-blue-800 font-semibold text-xl my-8" type="submit">Search Doggos</button>
           </form>
           {dogCards.length > 0 && (
-            <div className="flex w-3/12 justify-between">
-              <button onClick={handlePreviousCursorValue}>Previous Page</button>
-              <p>
+            <div className="flex w-4/12 justify-between mx-auto items-center text-xl my-4">
+              <button onClick={handlePreviousCursorValue} className="border-2 rounded-full bg-blue-300 text-blue-800 p-2">Previous Page</button>
+              <p className="underline">
                 Showing page {pageNumber} of {totalPages} ({totalResults} total
                 results)
               </p>
-              <button onClick={handleNextCursorValue}>Next Page</button>
+              <button onClick={handleNextCursorValue}  className="border-2 rounded-full bg-blue-300 text-blue-800 p-2">Next Page</button>
             </div>
           )}
           <div className="flex flex-wrap">
