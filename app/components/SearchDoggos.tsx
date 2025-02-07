@@ -220,7 +220,7 @@ export const SearchDoggos = () => {
                     className="block mx-auto bg-blue-700 hover:bg-blue-600 text-blue-100 rounded-xl p-2 items-center"
                     type="submit"
                   >
-                   Enter Search
+                   Find Dogs
                   </button>
                 </div>
               </div>
@@ -271,7 +271,8 @@ export const SearchDoggos = () => {
           
           )}
           {doggoMatch !== null && (
-            <div>
+            <div className="my-12">
+              <h1 className="text-3xl lg:text-6xl font-semibold text-center">Meet your match!</h1>
               <MatchedDoggo dog={doggoMatch} />
             </div>
           )}
