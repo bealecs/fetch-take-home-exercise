@@ -167,8 +167,13 @@ export const SearchDoggos = () => {
     }
   };
   const handleClearFavorite = () => {
+    if(userFavoriteList.length === 0) {
+      alert("You do not currently have any favorited dogs");
+      return;
+    }
     setUserFavoriteList([]);
     setDoggoMatch(null);
+    alert("Your favorites selections have been cleared");
   };
 
   useEffect(() => {
@@ -196,7 +201,7 @@ export const SearchDoggos = () => {
                     className="block mx-auto w-fit"
                     onClick={(e) => handleSortBreed(e)}
                   >
-                    Sort breeds{" "}
+                    Sort breeds:{" "}
                     {sortByAscending ? "descending ▼" : "ascending ▲"}
                   </button>
                   <select

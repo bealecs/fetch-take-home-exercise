@@ -21,7 +21,7 @@ export const DoggoCard = ({ dog, isFavorite, favoriteToggle }: DoggoCardProps) =
         />
       </div>
       <p>Zip code: {dog.zip_code}</p>
-      <button className="hover:text-yellow-400 transition-colors 0.2s ease-linear" onClick={() => favoriteToggle(dog.id)}>{isFavorite ? "★ Unfavorite" : "☆ Favorite"}</button>
+      <button className="hover:text-yellow-700 transition-colors 0.2s ease-linear" onClick={() => favoriteToggle(dog.id)}>{isFavorite ? "★ Unfavorite" : "☆ Favorite"}</button>
     </div>
   );
 };
