@@ -9,6 +9,8 @@ import { fetchDogBreeds } from "../helpers/fetchDogBreeds";
 import { fetchDogsWithParams } from "../helpers/fetchDogsWithParams";
 import { paginate } from "../helpers/paginate";
 import { Loading } from "./Loading";
+import { findMatch } from "../helpers/findMatch";
+import { MatchedDoggo } from "./MatchedDoggo";
 
 export const SearchDoggos = () => {
   // const [filterBy, setFilterBy] = useState<string | null>(null);
@@ -26,6 +28,8 @@ export const SearchDoggos = () => {
   const PAGE_SIZE = Math.max(25, resultIdsState.length); //outputs 25 if resultsIdState.length is less than 25... Math.max returns the largest number in a set of given parameters
   const totalPages = Math.ceil(totalResults / PAGE_SIZE);
   const [loading, setLoading] = useState<boolean>(false);
+  const [userFavoriteList, setUserFavoriteList] = useState<string[]>([]);
+  const [doggoMatch, setDoggoMatch] = useState<Dog | null>(null)
 
   const handleBreedChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedBreed(e.target.value);
@@ -86,6 +90,9 @@ export const SearchDoggos = () => {
     e.preventDefault();
     setLoading(true);
     setPageNumber(1);
+    if(doggoMatch) {
+        setDoggoMatch(null);
+    }
     try {
       if (selectedBreed.length > 0) {
         const { next, total, resultIds, prev } = await fetchDogsWithParams(
@@ -117,6 +124,36 @@ export const SearchDoggos = () => {
     }
   };
 
+  const handleFavoriteDogCard = (dogId: string) => {
+    setUserFavoriteList((prevFavs) => {
+        const updatedFavoritesList = new Set(prevFavs); //convert the array into a set form to ensure unique values across the array
+        if(updatedFavoritesList.has(dogId)) {
+            updatedFavoritesList.delete(dogId);
+        } else {
+            updatedFavoritesList.add(dogId);
+        }
+        return Array.from(updatedFavoritesList)//puts the set back to array form
+    })
+  }
+
+  const handleMatching = async () => {
+    setLoading(true);
+    if(userFavoriteList.length <= 0) {
+        alert("You need to favorite some dogs first to find a match");
+        setLoading(false);
+        return;
+    }
+    try {
+        const foundMatchedDoggo = await findMatch(userFavoriteList);
+        setDogCards([]);
+        setDoggoMatch(foundMatchedDoggo);
+    } catch (err) {
+        console.log(err);
+    } finally {
+        setLoading(false);
+    }
+
+}
   //this useEffect will cause a rerender if any of the filter settings are adjusted
   useEffect(() => {
     const getDogBreeds = async () => {
@@ -191,10 +228,17 @@ export const SearchDoggos = () => {
               <button onClick={handleNextCursorValue}  className="border-2 rounded-full bg-blue-300 text-blue-800 p-2">Next Page</button>
             </div>
           )}
+          <button onClick={handleMatching}>Match me based on favorites</button>
+          <button onClick={() => setUserFavoriteList([])}>Clear my favorites list</button>
+          {doggoMatch !== null && (
+            <div>
+                <MatchedDoggo dog={doggoMatch} />
+            </div>
+          )} 
           <div className="flex flex-wrap">
             {dogCards.length > 0 &&
               dogCards.map((dogCard) => (
-                <DoggoCard dog={dogCard} key={dogCard.id} />
+                <DoggoCard dog={dogCard} key={dogCard.id} isFavorite={userFavoriteList.includes(dogCard.id)} favoriteToggle={handleFavoriteDogCard} />
               ))}
           </div>
         </div>

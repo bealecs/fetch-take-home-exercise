@@ -1,12 +1,10 @@
 import Image from "next/image";
 import { Dog } from "../types/typeInterfaces";
 
-interface DoggoCardProps {
+interface MatchedDoggoProps {
   dog: Dog;
-  isFavorite: boolean;
-  favoriteToggle: (dogId: string) => void;
 }
-export const DoggoCard = ({ dog, isFavorite, favoriteToggle }: DoggoCardProps) => {
+export const MatchedDoggo = ({ dog }: MatchedDoggoProps) => {
   return (
     <div className="border-2 text-center rounded-xl w-fit m-2 bg-blue-300 text-blue-800">
       <h1 className="font-semibold text-3xl">{dog.name}</h1>
@@ -21,7 +19,6 @@ export const DoggoCard = ({ dog, isFavorite, favoriteToggle }: DoggoCardProps) =
         />
       </div>
       <p>Zip code: {dog.zip_code}</p>
-      <button onClick={() => favoriteToggle(dog.id)}>{isFavorite ? "★ Unfavorite" : "☆ Favorite"}</button>
     </div>
   );
 };
