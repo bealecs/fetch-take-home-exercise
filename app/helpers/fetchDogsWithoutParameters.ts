@@ -1,6 +1,6 @@
 import { DogSearch } from "../types/typeInterfaces";
 
-export const fetchDogsWithoutParameters = async (e?: React.FormEvent) => {
+export const fetchDogsWithoutParameters = async (order: boolean, e?: React.FormEvent) => {
     e?.preventDefault();
     const response = await fetch(`https://frontend-take-home-service.fetch.com/dogs/search`, {
         credentials: "include",
@@ -16,17 +16,7 @@ export const fetchDogsWithoutParameters = async (e?: React.FormEvent) => {
     return {
         next: result.next,
         total: result.total,
-        resultIds: result.resultIds,
+        resultIds: order === true ? result.resultIds : result.resultIds.reverse(),
         prev: result.prev,
     }
-    // const fetchResults = await fetch("https://frontend-take-home-service.fetch.com/dogs", {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     },
-    //     credentials: "include",
-    //     body: JSON.stringify(result.resultIds)
-    // })
-    // const dogResults: Dog[] = await fetchResults.json();
-    // return dogResults;
 }

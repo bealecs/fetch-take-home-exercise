@@ -90,7 +90,7 @@ export const SearchDoggos = () => {
       if (selectedBreed.length > 0) {
         const { next, total, resultIds, prev } = await fetchDogsWithParams(
           "breeds",
-          selectedBreed
+          selectedBreed,
         );
         setPrevPage(prev);
         setNextPage(next);
@@ -102,7 +102,7 @@ export const SearchDoggos = () => {
         console.log(dogCards);
       } else {
         const { next, total, resultIds, prev } =
-          await fetchDogsWithoutParameters(e);
+          await fetchDogsWithoutParameters(sortByAscending, e);
         setPrevPage(prev);
         setNextPage(next);
         setTotalResults(total);
@@ -120,13 +120,14 @@ export const SearchDoggos = () => {
   //this useEffect will cause a rerender if any of the filter settings are adjusted
   useEffect(() => {
     const getDogBreeds = async () => {
-      //fetchDogs function gets a list of all the different dog breeds
-      const breeds: string[] = await fetchDogBreeds();
       if (sortByAscending) {
+        //im going to pass an extra boolean value to this function. If the value is true, return the breeds in ascending order || descending order if false is passed in
+        const breeds: string[] = await fetchDogBreeds(true);
         setDogBreeds(breeds);
-      } else {
-        setDogBreeds(breeds.reverse());
-      }
+        } else {
+        const breeds: string[] = await fetchDogBreeds(false);
+        setDogBreeds(breeds);
+        }
     };
     getDogBreeds();
   }, [sortByAscending]);
@@ -136,9 +137,9 @@ export const SearchDoggos = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div>
+        <div className="my-8">
           <button
-            className="underline block w-fit mx-auto"
+            className="underline block w-fit mx-auto text-xl "
             onClick={(e) => {
               e.preventDefault();
               setShowAdvancedFilters((prev) => !prev);

@@ -1,4 +1,4 @@
-export const fetchDogBreeds = async (): Promise<string[]> => {
+export const fetchDogBreeds = async (order: boolean): Promise<string[]> => {
     const response = await fetch("https://frontend-take-home-service.fetch.com/dogs/breeds", {
         method: "GET",
         credentials: "include",
@@ -10,6 +10,10 @@ export const fetchDogBreeds = async (): Promise<string[]> => {
         throw new Error("There was an error fetching the doggos");
     }
 
-    const result = await response.json();
-    return result;
+    const result: string[] = await response.json();
+    if(order === true) {
+       return result;
+    } else {
+       return result.reverse();
+    }
 }
