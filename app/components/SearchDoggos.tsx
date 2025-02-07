@@ -217,7 +217,7 @@ export const SearchDoggos = () => {
 
                 <div>
                   <button
-                    className="block mx-auto bg-blue-700 hover:bg-blue-600 text-blue-100 rounded-xl p-2 items-center"
+                    className="block mx-auto bg-blue-700 hover:bg-blue-600 text-blue-100 rounded-xl p-2 items-center transition-all ease-linear 0.2s"
                     type="submit"
                   >
                    Find Dogs
@@ -242,13 +242,13 @@ export const SearchDoggos = () => {
             <div className="flex flex-col xl:flex-row w-full justify-between mx-auto items-center text-xl my-4 px-8 space-y-4 xl:space-x-4 xl:space-y-0">
             <button
               onClick={handleMatching}
-              className="bg-slate-100 hover:bg-slate-300 text-blue-900 rounded-xl p-2 w-full xl:w-auto"
+              className="bg-slate-100 hover:bg-slate-300 text-blue-900 rounded-xl p-2 w-full xl:w-auto transition-all ease-linear 0.2s"
             >
               Match me based on favorites
             </button>
             <button
               onClick={handlePreviousCursorValue}
-              className="rounded-xl bg-blue-700 hover:bg-blue-600 text-blue-100 p-2 w-full xl:w-auto"
+              className="rounded-xl bg-blue-700 hover:bg-blue-600 text-blue-100 p-2 w-full xl:w-auto transition-all ease-linear 0.2s"
             >
               Previous Page
             </button>
@@ -257,13 +257,13 @@ export const SearchDoggos = () => {
             </p>
             <button
               onClick={handleNextCursorValue}
-              className="rounded-xl bg-blue-700 hover:bg-blue-600 text-blue-100 p-2 w-full xl:w-auto"
+              className="rounded-xl bg-blue-700 hover:bg-blue-600 text-blue-100 p-2 w-full xl:w-auto transition-all ease-linear 0.2s"
             >
               Next Page
             </button>
             <button
               onClick={handleClearFavorite}
-              className="bg-slate-100 hover:bg-slate-300 text-red-600 rounded-xl p-2 w-full xl:w-auto"
+              className="bg-slate-100 hover:bg-slate-300 text-red-600 rounded-xl p-2 w-full xl:w-auto transition-all ease-linear 0.2s"
             >
               Clear my favorites list
             </button>
